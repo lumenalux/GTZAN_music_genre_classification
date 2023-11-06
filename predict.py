@@ -2,10 +2,9 @@ from functools import partial
 
 from flask import Flask, request, jsonify
 import librosa
-import numpy as np
 import joblib
 import tensorflow as tf
-from xgboost import Booster, DMatrix
+from xgboost import Booster
 
 from extract import extract_features, prepare_features_for_model
 from prediction.xgboost import get_xgb_prediction

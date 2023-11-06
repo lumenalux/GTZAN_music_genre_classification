@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: midterm-project-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: midterm
+  template:
+    metadata:
+      labels:
+        app: midterm
+    spec:
+      containers:
+        - name: midterm
+          image: lumenalux/mlzoomcamp-2023-midterm:latest
+          ports:
+            - containerPort: 5000
