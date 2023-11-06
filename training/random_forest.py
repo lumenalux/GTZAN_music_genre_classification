@@ -22,7 +22,7 @@ def split_data(X, y, test_size=0.2, random_state=42):
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
 
-def train_random_forest(X_train, y_train, n_estimators=100, random_state=42):
+def train_random_forest(X_train, y_train, n_estimators=200, random_state=42):
     model = RandomForestClassifier(
         n_estimators=n_estimators, random_state=random_state)
     model.fit(X_train, y_train)
