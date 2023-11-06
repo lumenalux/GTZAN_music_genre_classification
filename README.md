@@ -15,8 +15,8 @@ The challenge is to accurately classify the genre of a given piece of music. Thi
 1. Clone the repository:
 
 ```sh
-git clone [your-repo-link]
-cd [your-repo-directory]
+git clone https://github.com/lumenalux/GTZAN_music_genre_classification
+cd GTZAN_music_genre_classification
 ```
 
 1.  Create and activate a virtual environment:
