@@ -98,8 +98,6 @@ After installing and starting the service, you can use the following endpoints t
 
 To make a prediction, send a POST request to the desired endpoint with a form-data body containing the audio file under the key "file". For example:
 
-shCopy code
-
 `curl -X POST -F "file=@/path-to-your-file/music.wav" http://localhost:8080/predict/xgb`
 
 ## EDA Notebook
