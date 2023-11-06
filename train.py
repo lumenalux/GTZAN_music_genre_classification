@@ -17,7 +17,7 @@ from training.XGBoost import train_xgboost, xgboost_experiments
 data_path = 'Data/features_3_sec.csv'
 data = pd.read_csv(data_path)
 
-# Prepare the data (assuming you have a function for that)
+# Prepare the data
 X_train, X_val, y_train, y_val, encoder = preprocess_data(data)
 
 # Define a directory to save the models
