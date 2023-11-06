@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
 
@@ -11,19 +10,6 @@ from keras.utils import to_categorical
 from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
-
-
-# Function to preprocess data
-def preprocess_data(data_path):
-    data = pd.read_csv(data_path)
-    X = data.drop(['filename', 'label'], axis=1)
-    y = data['label']
-
-    encoder = LabelEncoder()
-    y_encoded = encoder.fit_transform(y)
-    X_scaled = StandardScaler().fit_transform(X)
-
-    return X_scaled, y_encoded, encoder
 
 
 # Function to create the CNN model
@@ -57,7 +43,10 @@ def evaluate_cnn_model(model, X_val, y_val, encoder):
     y_val_pred = np.argmax(model.predict(X_val), axis=1)
     y_val_encoded = encoder.transform(y_val)
     report = classification_report(
-        y_val_encoded, y_val_pred, target_names=encoder.classes_)
+        y_true=y_val_encoded,
+        y_pred=y_val_pred,
+        target_names=encoder.classes_
+    )
     return report
 
 

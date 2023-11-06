@@ -5,18 +5,6 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import classification_report
 
 
-# Function to preprocess data
-def preprocess_data(data, test_size=0.2, random_state=42):
-    X = data.drop(['filename', 'label'], axis=1)
-    y = data['label']
-    encoder = LabelEncoder()
-    y = encoder.fit_transform(y)
-    X = StandardScaler().fit_transform(X)
-    X_train, X_val, y_train, y_val = train_test_split(
-        X, y, test_size=test_size, random_state=random_state)
-    return X_train, X_val, y_train, y_val, encoder
-
-
 # Function to create a base model
 def create_base_model(input_shape):
     model = tf.keras.models.Sequential([
@@ -60,7 +48,10 @@ def train_model(model, X_train, y_train, X_val, y_val, epochs=150, batch_size=32
 def evaluate_model(model, X_val, y_val, encoder):
     y_val_pred = np.argmax(model.predict(X_val), axis=1)
     report = classification_report(
-        y_val, y_val_pred, target_names=encoder.classes_)
+        y_true=y_val,
+        y_pred=y_val_pred,
+        target_names=encoder.classes_
+    )
     return report
 
 
@@ -72,8 +63,6 @@ def train_ensemble_models(X_train, y_train, num_models=10, epochs=150, batch_siz
         model = create_model_with_dropout(
             input_shape=(X_train.shape[1],), dropout=0.2)
         model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size)
-        # Normally, you would save the model here, but we'll omit this step for now
-        # model.save(f'model_{i+1}.h5')
         models.append(model)
     return models
 

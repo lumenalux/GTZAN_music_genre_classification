@@ -1,28 +1,5 @@
-# KNN.py
-
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report
-import pandas as pd
-
-
-def preprocess_data(data, feature_cols, label_col):
-    # Splitting data into features and labels
-    X = data[feature_cols]
-    y = data[label_col]
-
-    # Encoding labels and feature normalization
-    encoder = LabelEncoder()
-    y_encoded = encoder.fit_transform(y)
-    X_scaled = StandardScaler().fit_transform(X)
-
-    return X_scaled, y_encoded, encoder
-
-
-def split_data(X, y, test_size=0.2, random_state=42):
-    # Split data into training and validation parts
-    return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
 
 def train_knn(X_train, y_train, n_neighbors=5):
@@ -37,7 +14,10 @@ def evaluate_knn(knn, X_val, y_val, encoder):
 
     # Evaluation
     report = classification_report(
-        y_val, y_knn_predict, target_names=encoder.classes_)
+        y_true=y_val,
+        y_pred=y_knn_predict,
+        target_names=encoder.classes_
+    )
     return report
 
 

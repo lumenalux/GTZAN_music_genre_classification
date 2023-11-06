@@ -1,5 +1,5 @@
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
 from sklearn.metrics import classification_report
 
 
@@ -8,9 +8,8 @@ def split_data(X, y, test_size=0.2, random_state=42):
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
 
-def train_random_forest(X_train, y_train, n_estimators=200, random_state=42):
-    model = RandomForestClassifier(
-        n_estimators=n_estimators, random_state=random_state)
+def train_xgboost(X_train, y_train, n_estimators=100, random_state=42):
+    model = XGBClassifier(n_estimators=n_estimators, random_state=random_state)
     model.fit(X_train, y_train)
     return model
 
@@ -28,9 +27,10 @@ def evaluate_model(model, X_val, y_val, encoder):
     return report
 
 
-def experiment_with_estimators(X_train, y_train, X_val, y_val, encoder, estimators_list):
+def xgboost_experiments(X_train, y_train, X_val, y_val, encoder, estimators_list):
     for n_estimators in estimators_list:
         print(f"\n\n# n_estimators: {n_estimators}\n")
-        classifier = train_random_forest(X_train, y_train, n_estimators)
-        report = evaluate_model(classifier, X_val, y_val, encoder)
+        xgboost_model = train_xgboost(
+            X_train, y_train, n_estimators, random_state=42)
+        report = evaluate_model(xgboost_model, X_val, y_val, encoder)
         print(report)
