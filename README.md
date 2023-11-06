@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project aims to classify music genres using various machine learning models. The project utilizes the GTZAN dataset, which is the most-used public dataset for evaluation in music genre recognition (MGR) research. The data includes audio files across 10 different genres, each 30 seconds long, and their corresponding Mel Spectrograms for visual representation.
+This project aims to classify music genres using various machine learning models. The project utilizes the GTZAN dataset, which is the most-used public dataset for evaluation in music genre recognition (MGR) research. The data includes audio files across 10 different genres, each 30 seconds long, and their corresponding Mel Spectrograms for visual representation
 
 ## Problem Statement
 
