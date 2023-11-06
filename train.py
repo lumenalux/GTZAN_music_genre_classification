@@ -6,7 +6,8 @@ import numpy as np
 from tensorflow import keras
 from keras.utils import to_categorical
 
-from training.deep_learning import train_ensemble_models, evaluate_ensemble, preprocess_data
+from training.deep_learning import train_ensemble_models
+from training.preparation import preprocess_data
 from training.CNN import train_cnn_model, create_cnn_model
 from training.random_forest import train_random_forest, experiment_with_estimators as rf_experiment
 from training.KNN import train_knn, knn_experiments
@@ -47,17 +48,17 @@ joblib.dump(
     random_forest_model,
     os.path.join(model_dir, 'random_forest_model.joblib')
 )
-rf_experiment(X_train, y_train, X_val, y_val, encoder, [100, 200, 500])
+# rf_experiment(X_train, y_train, X_val, y_val, encoder, [5, 10, 25, 50, 100, 200, 500])
 
 # Train and experiment with KNN models
 knn_model = train_knn(X_train, y_train)
 joblib.dump(knn_model, os.path.join(model_dir, 'knn_model.joblib'))
-knn_experiments(X_train, y_train, X_val, y_val, encoder, [5, 10, 15])
+# knn_experiments(X_train, y_train, X_val, y_val, encoder, [2, 3, 4, 5, 10, 15])
 
 # Train and experiment with XGBoost models
 xgb_model = train_xgboost(X_train, y_train)
 xgb_model.save_model(os.path.join(model_dir, 'xgb_model.json'))
-xgboost_experiments(X_train, y_train, X_val, y_val, encoder, [100, 200, 500])
+# xgboost_experiments(X_train, y_train, X_val, y_val, encoder, [100, 200, 500])
 
 
 # Train and evaluate deep learning ensemble of models
