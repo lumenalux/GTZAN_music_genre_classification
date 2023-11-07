@@ -2,8 +2,9 @@ import librosa
 import numpy as np
 import pandas as pd
 
-def extract_features(audio_data, sample_rate):
-    # Calculate various features of the audio file
+df_structure = pd.read_csv('Data/features_3_sec.csv', nrows=0)
+
+def extract_features(audio_data, sample_rate, feature_columns):
     features = {
         'length': librosa.get_duration(y=audio_data, sr=sample_rate),
         'chroma_stft_mean': np.mean(librosa.feature.chroma_stft(y=audio_data, sr=sample_rate)),
@@ -25,7 +26,6 @@ def extract_features(audio_data, sample_rate):
         'tempo': librosa.beat.tempo(y=audio_data, sr=sample_rate)[0]
     }
 
-    # Calculate the mean and variance of the MFCCs
     mfccs = librosa.feature.mfcc(y=audio_data, sr=sample_rate)
     for i, mfcc in enumerate(mfccs, start=1):
         features[f'mfcc{i}_mean'] = np.mean(mfcc)
@@ -34,22 +34,9 @@ def extract_features(audio_data, sample_rate):
     for key in features:
         features[key] = float(features[key])  # Convert each float32 to native float
 
-    return features
+    return prepare_features_for_model(features, feature_columns)
 
-import pandas as pd
-
-df_structure = pd.read_csv('Data/features_3_sec.csv', nrows=0)
-
-def prepare_features_for_model(extracted_features):
+def prepare_features_for_model(extracted_features, feature_columns):
     df_features = pd.DataFrame([extracted_features])
-    df_features = df_features[df_structure.columns.drop(['filename', 'label'])]
+    df_features = df_features[feature_columns]
     return df_features
-
-# Prepare the data for the model
-# X_for_prediction = prepare_features_for_model(extracted_features)
-
-# Now, `X_for_prediction` can be fed into the model for prediction
-
-
-# audio_data, sample_rate = librosa.load('/home/lumenalux/Downloads/cell-phone-ring-fx_112bpm.wav', sr=None)
-# print(extract_features(audio_data, sample_rate))

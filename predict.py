@@ -5,27 +5,45 @@ import librosa
 import joblib
 import tensorflow as tf
 from xgboost import Booster
+import pandas as pd
 
-from extract import extract_features, prepare_features_for_model
+from prediction.extract import extract_features
 from prediction.xgboost import get_xgb_prediction
 from prediction.CNN import get_cnn_prediction
 from prediction.random_forest import get_random_forest_prediction
 from prediction.KNN import get_knn_prediction
-from prediction.deep_learning import get_dp_prediction, get_dp_ensemble_prediction
+from prediction.deep_learning import (
+  get_dp_prediction,
+  get_dp_ensemble_prediction
+)
 
 app = Flask(__name__)
 
+# Define the CNN model
 cnn_model = tf.keras.models.load_model('models/cnn_model.h5')
-dp_model = tf.keras.models.load_model('models/dp_model.h5')
+
+# Define the KNN model
 knn_model = joblib.load('models/knn_model.joblib')
+
+# Define the Random Forest model
 random_forest_model = joblib.load('models/random_forest_model.joblib')
+
+# Define the XGBoost model
 xgb_model = Booster()
 xgb_model.load_model('models/xgb_model.json')
+
+# Define deep learning model and an ensemble of deep learning models
+dp_model = tf.keras.models.load_model('models/dp_model.h5')
 dp_ensemble = []
 for i in range(1, 11):
     dp_ensemble.append(
       tf.keras.models.load_model(f'models/dp_ensemble/dp_model_{i}.h5')
     )
+
+# Define the feature columns
+feature_columns = pd.read_csv('Data/features_3_sec.csv',nrows=0).columns
+feature_columns = feature_columns.drop(['filename', 'label'])
+
 
 def predict_audio(predict_func, request):
     # Check if a file was uploaded
@@ -39,14 +57,15 @@ def predict_audio(predict_func, request):
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
 
-    if file:
-        audio_data, sample_rate = librosa.load(file, sr=None)
-        features = extract_features(audio_data, sample_rate)
-        prepared_features = prepare_features_for_model(features)
-        probabilities_list = predict_func(prepared_features)
-        return jsonify(probabilities_list)
+    if not file:
+        return jsonify({'error': 'Invalid file'}), 400
 
-    return jsonify({'error': 'Invalid file'}), 400
+    audio_data, sample_rate = librosa.load(file, sr=None)
+    features = extract_features(audio_data, sample_rate, feature_columns)
+    probabilities_list = predict_func(features)
+
+    return jsonify(probabilities_list)
+
 
 @app.route('/predict/xgb', methods=['POST'])
 def xgb_predict():
@@ -63,12 +82,14 @@ def cnn_predict():
         request
     )
 
-@app.route('/predict/random_forest', methods=['POST'])
+
+@app.route('/predict/random-forest', methods=['POST'])
 def random_forest_predict():
     return predict_audio(
         partial(get_random_forest_prediction, random_forest_model),
         request
     )
+
 
 @app.route('/predict/knn', methods=['POST'])
 def knn_predict():
@@ -77,14 +98,16 @@ def knn_predict():
         request
     )
 
-@app.route('/predict/deep_learning', methods=['POST'])
+
+@app.route('/predict/deep-learning', methods=['POST'])
 def dp_predict():
     return predict_audio(
         partial(get_dp_prediction, dp_model),
         request
     )
 
-@app.route('/predict/deep_learning/ensemble', methods=['POST'])
+
+@app.route('/predict/deep-learning/ensemble', methods=['POST'])
 def dp_ensemble_predict():
     return predict_audio(
         partial(get_dp_ensemble_prediction, dp_ensemble),
@@ -92,4 +115,4 @@ def dp_ensemble_predict():
     )
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(host='0.0.0.0', port=5000)
