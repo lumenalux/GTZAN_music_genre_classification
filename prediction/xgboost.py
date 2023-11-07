@@ -1,5 +1,5 @@
-
+import numpy as np
 from xgboost import DMatrix
 
 def get_xgb_prediction(xgb_model, features):
-        return xgb_model.predict(DMatrix(data=features)).tolist()
+        return np.argmax(xgb_model.predict(DMatrix(data=features)), axis=1)

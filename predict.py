@@ -1,11 +1,13 @@
 from functools import partial
 
 from flask import Flask, request, jsonify
+from sklearn.preprocessing import LabelEncoder
 import librosa
 import joblib
 import tensorflow as tf
 from xgboost import Booster
 import pandas as pd
+import numpy as np
 
 from prediction.extract import extract_features
 from prediction.xgboost import get_xgb_prediction
@@ -44,6 +46,11 @@ for i in range(1, 11):
 feature_columns = pd.read_csv('Data/features_3_sec.csv',nrows=0).columns
 feature_columns = feature_columns.drop(['filename', 'label'])
 
+# Define label encoder
+encoder = LabelEncoder()
+encoder.fit_transform(['blues', 'classical', 'country', 'disco', 'hiphop',
+                        'jazz', 'metal', 'pop', 'reggae', 'rock'])
+
 
 def predict_audio(predict_func, request):
     # Check if a file was uploaded
@@ -62,9 +69,12 @@ def predict_audio(predict_func, request):
 
     audio_data, sample_rate = librosa.load(file, sr=None)
     features = extract_features(audio_data, sample_rate, feature_columns)
-    probabilities_list = predict_func(features)
+    class_index = [int(np.mean(predict_func(features)))]
 
-    return jsonify(probabilities_list)
+    return jsonify({
+        'file name': file.filename,
+        'label': encoder.inverse_transform(class_index).tolist()[0]
+    })
 
 
 @app.route('/predict/xgb', methods=['POST'])
@@ -115,4 +125,4 @@ def dp_ensemble_predict():
     )
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)

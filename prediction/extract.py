@@ -2,11 +2,24 @@ import librosa
 import numpy as np
 import pandas as pd
 
-df_structure = pd.read_csv('Data/features_3_sec.csv', nrows=0)
+chunk_size = 3  # seconds
 
 def extract_features(audio_data, sample_rate, feature_columns):
+    samples_per_chunk = sample_rate * chunk_size
+    chunks = [
+        audio_data[i:i + samples_per_chunk]
+        for i in range(0, len(audio_data), int(samples_per_chunk))
+    ]
+
+    return pd.concat(
+        extract_features_for_chunk(chunk, sample_rate, feature_columns)
+        for chunk in chunks
+    )
+
+
+def extract_features_for_chunk(audio_data, sample_rate, feature_columns):
     features = {
-        'length': librosa.get_duration(y=audio_data, sr=sample_rate),
+        'length': len(audio_data),
         'chroma_stft_mean': np.mean(librosa.feature.chroma_stft(y=audio_data, sr=sample_rate)),
         'chroma_stft_var': np.var(librosa.feature.chroma_stft(y=audio_data, sr=sample_rate)),
         'rms_mean': np.mean(librosa.feature.rms(y=audio_data)),
