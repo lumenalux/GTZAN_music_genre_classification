@@ -118,7 +118,7 @@ curl -X POST -F "file=@/path-to-your-file/music.wav" http://localhost:5000/predi
 
 ## EDA Notebook
 
-An exploratory data analysis (EDA) for this project is provided in the `notebooks/EDA.ipynb` notebook. It contains visualizations and insights derived from the dataset.
+An exploratory data analysis (EDA) for this project is provided in the [notebooks/EDA.ipynb](notebooks/EDA.ipynb) notebook. It contains visualizations and insights derived from the dataset.
 
 ## Testing
 
