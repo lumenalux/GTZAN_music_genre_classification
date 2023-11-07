@@ -23,38 +23,52 @@ cd GTZAN_music_genre_classification
 
 - On macOS and Linux:
 
-`python3 -m venv venv
-source venv/bin/activate`
+```sh
+python3 -m venv venv
+source venv/bin/activate
+```
 
 - On Windows:
 
-`python -m venv venv
-.\venv\Scripts\activate`
+```sh
+python -m venv venv
+.\venv\Scripts\activate
+```
 
 1.  Install the dependencies:
 
-`pip install -r requirements.txt`
+```sh
+pip install -r requirements.txt
+```
 
 ### Using Docker
 
 1.  Build the Docker image:
 
-`docker build -t midterm .`
+```sh
+docker build -t midterm .
+```
 
 1.  Run the Docker container:
 
-`docker run -p 8080:5000 midterm`
+```sh
+docker run -p 8080:5000 midterm
+```
 
 ### Using Kubernetes
 
 1.  Apply the Kubernetes manifests to create the deployment and service:
 
-`kubectl apply -f deployment.yaml
-kubectl apply -f service.yaml`
+```sh
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+```
 
 1.  Get the external IP of your service:
 
-`kubectl get services`
+```sh
+kubectl get services
+```
 
 ## Usage
 
@@ -74,7 +88,7 @@ After installing and starting the service, you can use the following endpoints t
 
 - Random Forest Classifier
 
-  `POST /predict/random_forest`
+  `POST /predict/random-forest`
 
   Use this endpoint to classify music using the Random Forest model.
 
@@ -86,19 +100,21 @@ After installing and starting the service, you can use the following endpoints t
 
 - Deep Learning Classifier
 
-  `POST /predict/deep_learning`
+  `POST /predict/deep-learning`
 
   Use this endpoint to classify music using a Deep Learning model.
 
 - Deep Learning Ensemble Classifier
 
-  `POST /predict/deep_learning/ensemble`
+  `POST /predict/deep-learning/ensemble`
 
   Use this endpoint to classify music using an ensemble of Deep Learning models.
 
 To make a prediction, send a POST request to the desired endpoint with a form-data body containing the audio file under the key "file". For example:
 
-`curl -X POST -F "file=@/path-to-your-file/music.wav" http://localhost:8080/predict/xgb`
+```sh
+curl -X POST -F "file=@/path-to-your-file/music.wav" http://localhost:5000/predict/xgb
+```
 
 ## EDA Notebook
 
