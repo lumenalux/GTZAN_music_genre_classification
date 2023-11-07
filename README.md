@@ -52,7 +52,7 @@ docker build -t midterm .
 1.  Run the Docker container:
 
 ```sh
-docker run -p 5000:5000 midterm
+docker run -d -p 5000:5000 midterm
 ```
 
 ### Using Kubernetes
