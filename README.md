@@ -10,6 +10,7 @@
   - [Using Kubernetes](#using-kubernetes)
 - [Usage](#usage)
 - [Using Locally with Minikube](#using-locally-with-minikube)
+- [Kubernetes Test](#kubernetes-test)
 - [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
 - [ML models used in this project](#ml-models-used-in-this-project)
   - [K-Nearest Neighbors (KNN)](#k-nearest-neighbors-knn)
@@ -165,7 +166,7 @@ You can now make predictions by sending a POST request with an audio file:
 ```sh
 curl -X POST\
   -F "file=@/path/to/example.wav"\
-  http://192.168.49.2:32150/predict/deep-learn
+  http://192.168.49.2:32150/predict/deep-learning
 ```
 
 The API will return a JSON response with the prediction:
@@ -173,6 +174,13 @@ The API will return a JSON response with the prediction:
 ```json
 { "file name": "example.wav", "label": "pop" }
 ```
+
+## Kubernetes Test
+
+![Kubernetes start](docs/kubernetes-start.png)
+![Kubernetes info](docs/kubernetes-info.png)
+![Minikube service](docs/minikube-service.png)
+![Usage with kubernetes](docs/usage-kubernetes.png)
 
 ## Exploratory Data Analysis (EDA)
 
