@@ -21,7 +21,7 @@
 
 ## Overview
 
-This project applies machine learning techniques to automatically classify music into genres based on audio data. The models are trained and evaluated using the GTZAN dataset, a popular benchmark dataset for music genre recognition. The goal is to accurately predict the genre of a music clip given its audio waveform and spectrogram image.
+This project applies machine learning techniques to automatically classify music into genres based on audio data. The models are trained and evaluated using the [GTZAN dataset](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification), a popular benchmark dataset for music genre recognition. The goal is to accurately predict the genre of a music clip given its audio waveform and spectrogram image.
 
 ## Problem Statement
 
