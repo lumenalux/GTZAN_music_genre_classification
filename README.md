@@ -244,7 +244,7 @@ weighted avg       0.92      0.91      0.91      1998
 
 ### Random Forest
 
-The [notebooks/RandomForest.ipynb](notebooks/RandomForest.ipynb) notebook investigates the Random Forest algorithm's effectiveness in classifying music genres
+The [notebooks/random_forest.ipynb](notebooks/random_forest.ipynb) notebook investigates the Random Forest algorithm's effectiveness in classifying music genres
 
 Endpoint:
 
@@ -273,7 +273,7 @@ weighted avg       0.89      0.89      0.89      1998
 
 ### Convolutional Neural Network (CNN)
 
-The [notebooks/simpleCNN.ipynb](notebooks/simpleCNN.ipynb) notebook demonstrates the application of Convolutional Neural Networks to classify music genres. CNN model utilizes features from `features_3_sec.csv` to recognize distinct genre characteristics.
+The [notebooks/CNN.ipynb](notebooks/CNN.ipynb) notebook demonstrates the application of Convolutional Neural Networks to classify music genres. CNN model utilizes features from `features_3_sec.csv` to recognize distinct genre characteristics.
 
 Endpoint:
 
@@ -331,7 +331,7 @@ weighted avg       0.92      0.92      0.92      1998
 
 ### Deep Learning
 
-The [notebooks/DeepLearning.ipynb](notebooks/DeepLearning.ipynb) notebook shows how deep neural networks can identify and classify music genres
+The [notebooks/deep_learning.ipynb](notebooks/deep_learning.ipynb) notebook shows how deep neural networks can identify and classify music genres
 
 Endpoint:
 
@@ -360,7 +360,7 @@ weighted avg       0.94      0.94      0.94      1998
 
 ### Deep Learning Ensemble
 
-The [notebooks/DeepLearningEnsemble.ipynb](notebooks/DeepLearningEnsemble.ipynb) notebook presents the strength of combining multiple deep learning models to enhance prediction accuracy
+The [notebooks/deep_learning_ensemble.ipynb](notebooks/deep_learning_ensemble.ipynb) notebook presents the strength of combining multiple deep learning models to enhance prediction accuracy
 
 Endpoint:
 
