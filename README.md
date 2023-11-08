@@ -33,6 +33,31 @@ kaggle datasets download -d andradaolteanu/gtzan-dataset-music-genre-classificat
 unzip gtzan-dataset-music-genre-classification.zip
 ```
 
+The model's versatility allows it to recognize a spectrum of ten distinct genres: `blues`, `classical`, `country`, `disco`, `hiphop`, `jazz`, `metal`, `pop`, `reggae`, `rock`
+
+The practical application of this project extends to various domains including digital music services, content creators, and music enthusiasts. By automating the process of genre classification, the project provides a means for:
+
+1.  Music streaming platforms to organize vast libraries of songs, enhancing user experience through better music recommendation systems and more accurate genre-based sorting.
+2.  Artists and producers to classify their music without subjective bias, ensuring that their work reaches the intended audience through appropriate channels.
+3.  Researchers and hobbyists in the field of musicology to analyze trends and patterns in music genres, aiding in academic studies and personal projects.
+
+This machine learning-based approach simplifies the task of categorizing music by genre, can be highly subjective. The tool is simple to use; one can classify a music track by sending an audio file through a REST API endpoint, receiving the genre prediction in return:
+
+```sh
+curl -X POST \
+  -F "file=@/path/to/your/song.wav" \
+  http://yourserveraddress:port/predict/deep-learning
+```
+
+Upon submission, the user receives a JSON response containing the file name and the predicted genre label:
+
+```json
+{
+  "file name": "song.wav",
+  "label": "genre"
+}
+```
+
 ## Installation
 
 ### Using a Virtual Environment
