@@ -1,5 +1,24 @@
 # MLZoomcamp Midterm project: Music Genre Classification
 
+## Contents
+
+- [Overview](#overview)
+- [Problem Statement](#problem-statement)
+- [Installation](#installation)
+  - [Using a Virtual Environment](#using-a-virtual-environment)
+  - [Using Docker](#using-docker)
+  - [Using Kubernetes](#using-kubernetes)
+- [Usage](#usage)
+- [Using Locally with Minikube](#using-locally-with-minikube)
+- [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
+- [ML models used in this project](#ml-models-used-in-this-project)
+  - [K-Nearest Neighbors (KNN)](#k-nearest-neighbors-knn)
+  - [Random Forest](#random-forest)
+  - [Convolutional Neural Network (CNN)](#convolutional-neural-network-cnn)
+  - [XGBoost](#xgboost)
+  - [Deep Learning](#deep-learning)
+  - [Deep Learning Ensemble](#deep-learning-ensemble)
+
 ## Overview
 
 This project applies machine learning techniques to automatically classify music into genres based on audio data. The models are trained and evaluated using the GTZAN dataset, a popular benchmark dataset for music genre recognition. The goal is to accurately predict the genre of a music clip given its audio waveform and spectrogram image.
